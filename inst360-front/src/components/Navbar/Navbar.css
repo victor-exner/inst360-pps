@@ -1,0 +1,38 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4rem;
+    background-color: rgb(74, 136, 74);
+}
+
+.menu{
+    margin-right: 1rem;
+}
+
+.logo-img{
+    width: 7rem;
+}
+
+.menu-links{
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.5s ease;
+    border: 2px solid rgb(14, 75, 17);
+    background-color: rgb(204, 253, 204);
+    border-radius: 1rem;
+    margin: 0 1rem;
+}
+
+.menu-links:hover{
+    letter-spacing: 1px;
+}

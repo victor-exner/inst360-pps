@@ -1,0 +1,58 @@
+.usuario{
+    margin-top: 1rem;
+}
+
+.acoes{
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.excluir-btns{
+    margin-left: 1rem;
+}
+
+.excluir-btns, .editar-btns{
+    border: 2px solid rgb(14, 75, 17);
+    background-color: rgb(204, 253, 204);
+    border-radius: 1rem;
+    color: black;
+    padding: 0.5rem 1rem;
+    transition: all 0.5s ease;
+}
+
+.excluir-btns:hover, .editar-btns:hover{
+    letter-spacing: 1px;
+    background-color: rgb(104, 204, 104);
+}
+
+/* Formulário Edição */
+
+.edit-title{
+    margin: 1rem 0;
+}
+
+.edit-inputs{
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0;
+    max-width: 50%;
+}
+
+.btn-cancelar{
+    margin-left: 1rem;
+}
+
+.edit-btns{
+    margin-top: 0.5rem;
+    border: 2px solid rgb(14, 75, 17);
+    background-color: rgb(204, 253, 204);
+    border-radius: 1rem;
+    color: black;
+    padding: 0.5rem 1rem;
+    transition: all 0.5s ease;
+}
+
+.edit-btns:hover{
+    letter-spacing: 1px;
+    background-color: rgb(104, 204, 104);
+}
