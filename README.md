@@ -1,4 +1,4 @@
-# Instituto 360 — versão simplificada
+# Instituto 360 
 
 Projeto refeito a partir do projeto original, mantendo:
 - Backend Java com Spring Boot
