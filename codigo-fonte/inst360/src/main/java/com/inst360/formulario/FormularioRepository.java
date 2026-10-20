@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface FormularioRepository
         extends JpaRepository<Formulario, Long> {
 
-    boolean existsByContrasenha_Contrasenha(String contrasenha);
+    boolean existsByContrasenha(String contrasenha);
 }

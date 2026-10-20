@@ -2,14 +2,19 @@ package com.inst360.formulario;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.dao.DataIntegrityViolationException;
+
 
 @RestController
 @RequestMapping("/formularios-respondidos")
@@ -22,18 +27,18 @@ public class FormularioController {
     private final FormularioService formularioService;
 
     public FormularioController(
-            FormularioService formularioService) {
+            FormularioService formularioService){
         this.formularioService = formularioService;
     }
 
     @PostMapping
     public ResponseEntity<String> registrar(
-            HttpServletRequest request) {
+            @RequestBody FormularioRequest formularioRequest,
+            HttpServletRequest request){
 
-        // Recupera a sessão existente, sem criar uma nova.
         HttpSession sessao = request.getSession(false);
 
-        // Verifica se o usuário foi autorizado.
+        //Verifica se existe autorização na sessão
         if (sessao == null
                 || !Boolean.TRUE.equals(
                     sessao.getAttribute("acessoFormulario"))) {
@@ -42,7 +47,6 @@ public class FormularioController {
                     .body("Você não possui autorização para responder ao formulário.");
         }
 
-        // Recupera a contrassenha validada anteriormente.
         Object codigoSessao =
                 sessao.getAttribute("contrasenhaFormulario");
 
@@ -56,15 +60,23 @@ public class FormularioController {
         String codigo = (String) codigoSessao;
 
         try {
-            formularioService.registrarFormulario(codigo);
+            formularioService.registrarFormulario(
+                    codigo,
+                    formularioRequest
+            );
 
-            // Impede que a mesma sessão envie novamente.
+            //Remove a autorização depois do envio
             sessao.removeAttribute("acessoFormulario");
             sessao.removeAttribute("contrasenhaFormulario");
 
             return ResponseEntity.ok(
-                    "Formulário registrado com sucesso."
+                    "Pesquisa respondida e registrada com sucesso!"
             );
+
+        } catch (IllegalArgumentException e) {
+
+            return ResponseEntity.badRequest()
+                    .body(e.getMessage());
 
         } catch (IllegalStateException e) {
 
@@ -74,19 +86,21 @@ public class FormularioController {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(e.getMessage());
 
-        } catch (IllegalArgumentException e) {
-
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(e.getMessage());
-
         } catch (DataIntegrityViolationException e) {
 
-            // Proteção adicional para tentativas duplicadas simultâneas.
+            //A restrição UNIQUE protege contra registros duplicados
             sessao.removeAttribute("acessoFormulario");
             sessao.removeAttribute("contrasenhaFormulario");
 
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("Esta contrassenha já foi utilizada para responder ao formulário.");
         }
+    }
+
+    @GetMapping("/graficos")
+    public ResponseEntity<List<Map<String, Object>>> obterGraficos(){
+        return ResponseEntity.ok(
+                formularioService.obterDadosGraficos()
+        );
     }
 }

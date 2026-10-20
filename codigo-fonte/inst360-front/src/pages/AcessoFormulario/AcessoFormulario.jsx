@@ -1,159 +1,194 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 
 function AcessoFormulario() {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const [email, setEmail] = useState("");
-const [contrasenha, setContrasenha] = useState("");
-const [etapa, setEtapa] = useState("email");
-const [mensagem, setMensagem] = useState("");
-const [erro, setErro] = useState("");
-const [carregando, setCarregando] = useState(false);
+//verificando se existe um usuário logado para impedir acesso na rota sem login
+  useEffect(() => {
+    const usuarioSalvo = sessionStorage.getItem("usuarioLogado");
 
-async function solicitarContrasenha(evento) {
-evento.preventDefault();
-
-setErro("");
-setMensagem("");
-setCarregando(true);
-
-try {
-  const resposta = await fetch(
-    "http://localhost:8080/contrasenhas/solicitar",
-    {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ email })
+    if(!usuarioSalvo){
+      navigate("/login", {replace: true});
     }
-  );
+  }, [navigate]);
 
-  const texto = await resposta.text();
+  const [email, setEmail] = useState("");
+  const [contrasenha, setContrasenha] = useState("");
 
-  if (!resposta.ok) {
-    throw new Error(texto || "Não foi possível solicitar o código.");
+  const [mostrarCampoCodigo, setMostrarCampoCodigo] =
+    useState(false);
+
+  const [mensagem, setMensagem] = useState("");
+  const [tipoMensagem, setTipoMensagem] = useState("");
+  const [carregando, setCarregando] = useState(false);
+
+  async function solicitarContrasenha(evento) {
+    evento.preventDefault();
+
+    setMensagem("");
+    setTipoMensagem("");
+    setCarregando(true);
+
+    try {
+      const resposta = await fetch(
+        "http://localhost:8080/contrasenhas/solicitar",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ email }),
+        }
+      );
+
+      const texto = await resposta.text();
+
+      if (!resposta.ok) {
+        throw new Error(texto || "Não foi possível solicitar a contrassenha.");
+      }
+
+      setMensagem(texto || "Verifique seu e-mail para obter a contrassenha.");
+      setTipoMensagem("sucesso");
+    } catch (erro) {
+      setMensagem(
+        erro.message || "Erro ao solicitar a contrassenha."
+      );
+      setTipoMensagem("erro");
+    } finally {
+      setCarregando(false);
+    }
   }
 
-  setMensagem(texto);
-  setEtapa("codigo");
-} catch (erro) {
-  setErro(erro.message || "Erro ao solicitar a contrassenha.");
-} finally {
-  setCarregando(false);
-}
+  async function validarContrasenha(evento) {
+    evento.preventDefault();
 
-}
+    setMensagem("");
+    setTipoMensagem("");
+    setCarregando(true);
 
-async function validarContrasenha(evento) {
-evento.preventDefault();
+    try {
+      const resposta = await fetch(
+        "http://localhost:8080/contrasenhas/validar",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ contrasenha }),
+        }
+      );
 
-setErro("");
-setMensagem("");
-setCarregando(true);
+      const texto = await resposta.text();
 
-try {
-  const resposta = await fetch(
-    "http://localhost:8080/contrasenhas/validar",
-    {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ contrasenha })
+      if (!resposta.ok) {
+        throw new Error(texto || "Contrassenha inválida ou já utilizada.");
+      }
+
+      navigate("/formulario");
+    } catch (erro) {
+      setMensagem(
+        erro.message || "Erro ao validar a contrassenha."
+      );
+      setTipoMensagem("erro");
+    } finally {
+      setCarregando(false);
     }
-  );
-
-  const texto = await resposta.text();
-
-  if (!resposta.ok) {
-    throw new Error(texto || "Contrassenha inválida ou já utilizada.");
   }
 
-  setMensagem("Código validado com sucesso!");
-
-  navigate("/formulario");
-} catch (erro) {
-  setErro(erro.message || "Erro ao validar a contrassenha.");
-} finally {
-  setCarregando(false);
-}
-
-}
-
-return (
+  return (
 <>
-<Navbar />
+    <Navbar/>
 
-  <div className="container">
-    <h1>Acesso ao formulário</h1>
+    <main className="acesso-formulario-container">
+      <h1>Acesso ao formulário de pesquisa</h1>
 
-    {mensagem && (
-      <p className="mensagem sucesso">{mensagem}</p>
-    )}
+      <p>
+        Solicite uma contrassenha por e-mail ou informe um
+        código que você já possui.
+      </p>
 
-    {erro && (
-      <p className="mensagem erro">{erro}</p>
-    )}
+      <form onSubmit={solicitarContrasenha}>
+        <label htmlFor="email">
+          E-mail
+        </label>
 
-    {etapa === "email" ? (
-      <form className="formulario" onSubmit={solicitarContrasenha}>
-        <div className="campo">
-          <label htmlFor="email">E-mail:</label>
-
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(evento) => setEmail(evento.target.value)}
-            required
-          />
-        </div>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(evento) => setEmail(evento.target.value)}
+          placeholder="Digite seu e-mail"
+          required
+          disabled={carregando}
+        />
 
         <button type="submit" disabled={carregando}>
-          {carregando ? "Enviando..." : "Solicitar contrassenha"}
+          {carregando
+            ? "Processando..."
+            : "Solicitar contrassenha"}
         </button>
       </form>
-    ) : (
-      <form className="formulario" onSubmit={validarContrasenha}>
-        <div className="campo">
-          <label htmlFor="contrasenha">Contrassenha recebida:</label>
+
+      <hr />
+
+      <button
+        type="button"
+        disabled={carregando}
+        onClick={() => {
+          setMostrarCampoCodigo(!mostrarCampoCodigo);
+          setMensagem("");
+          setTipoMensagem("");
+        }}
+      >
+        {mostrarCampoCodigo
+          ? "Ocultar campo de contrassenha"
+          : "Já possuo uma contrassenha"}
+      </button>
+
+      {mostrarCampoCodigo && (
+        <form onSubmit={validarContrasenha}>
+          <label htmlFor="contrasenha">
+            Contrassenha
+          </label>
 
           <input
             id="contrasenha"
             type="text"
             value={contrasenha}
-            onChange={(evento) => setContrasenha(evento.target.value)}
+            onChange={(evento) =>
+              setContrasenha(evento.target.value)
+            }
+            placeholder="Digite sua contrassenha"
             required
+            disabled={carregando}
           />
-        </div>
 
-        <button type="submit" disabled={carregando}>
-          {carregando ? "Validando..." : "Validar contrassenha"}
-        </button>
+          <button type="submit" disabled={carregando}>
+            {carregando
+              ? "Validando..."
+              : "Validar contrassenha"}
+          </button>
+        </form>
+      )}
 
-        <button
-          type="button"
-          disabled={carregando}
-          onClick={() => {
-            setEtapa("email");
-            setContrasenha("");
-            setErro("");
-            setMensagem("");
+      {mensagem && (
+        <p
+          role="status"
+          style={{
+            color: tipoMensagem === "sucesso" ? "green" : "red",
+            marginTop: "16px",
           }}
         >
-          Voltar
-        </button>
-      </form>
-    )}
-  </div>
-</>
-
-);
+          {mensagem}
+        </p>
+      )}
+    </main>
+  </>
+  );
 }
 
 export default AcessoFormulario;

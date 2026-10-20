@@ -1,0 +1,176 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.home-pagina {
+min-height: 100vh;
+width: 100%;
+background-color: lightgray;
+padding-bottom: 2rem;
+}
+
+.home-container {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+background-color: #fff;
+border-radius: 1rem;
+padding: 1.5rem;
+margin: 1rem auto;
+width: 90%;
+max-width: 1400px;
+min-height: 50vh;
+}
+
+.home-titulo {
+color: #222;
+font-size: 2rem;
+}
+
+.home-boas-vindas,
+.home-tipo-usuario {
+color: #444;
+font-size: 1rem;
+}
+
+.home-lista-usuarios {
+width: 100%;
+overflow-x: auto;
+}
+
+.home-secao-graficos {
+margin-top: 1.5rem;
+width: 100%;
+}
+
+.home-secao-graficos h2 {
+color: #222;
+font-size: 1.6rem;
+margin-bottom: 0.5rem;
+}
+
+.home-descricao-graficos {
+color: #555;
+line-height: 1.5;
+margin-bottom: 1.5rem;
+}
+
+.home-graficos-grid {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 1.5rem;
+margin-top: 1rem;
+}
+
+.home-grafico-card {
+min-width: 0;
+padding: 1rem;
+background-color: #f9fafb;
+border: 1px solid #ddd;
+border-radius: 0.75rem;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.home-grafico-card h3 {
+color: #333;
+font-size: 1.1rem;
+line-height: 1.4;
+text-align: center;
+margin-bottom: 0.5rem;
+}
+
+.home-grafico {
+width: 100%;
+height: 320px;
+}
+
+.home-total-respostas {
+text-align: center;
+color: #444;
+font-weight: bold;
+margin-top: 0.5rem;
+}
+
+.home-grafico-vazio {
+text-align: center;
+color: #777;
+line-height: 1.5;
+padding: 2rem 0;
+}
+
+.home-erro-graficos {
+color: #b91c1c;
+background-color: #fef2f2;
+border: 1px solid #fecaca;
+border-radius: 0.5rem;
+padding: 1rem;
+margin: 1rem 0;
+}
+
+.home-nao-autenticado {
+padding: 2rem;
+text-align: center;
+}
+
+.home-nao-autenticado h1 {
+margin-bottom: 1rem;
+}
+
+.home-nao-autenticado button {
+padding: 0.6rem 1rem;
+margin-top: 1rem;
+cursor: pointer;
+border: none;
+border-radius: 0.4rem;
+background-color: #2563eb;
+color: white;
+}
+
+.home-nao-autenticado button {
+background-color: #1d4ed8;
+}
+
+/* Ajustes para tablets e celulares */
+@media (max-width: 768px) {
+.home-container {
+width: 95%;
+padding: 1rem;
+}
+
+.home-graficos-grid {
+grid-template-columns: 1fr;
+}
+
+.home-grafico {
+height: 300px;
+}
+
+.home-secao-graficos h2 {
+font-size: 1.35rem;
+}
+
+.home-titulo {
+font-size: 1.7rem;
+}
+}
+
+/* Ajustes para celulares pequenos */
+@media (max-width: 400px) {
+.home-container {
+padding: 0.75rem;
+}
+
+.home-grafico-card {
+padding: 0.5rem;
+}
+
+.home-grafico {
+height: 280px;
+}
+
+.home-grafico-card h3 {
+font-size: 1rem;
+}
+}

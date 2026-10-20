@@ -60,9 +60,12 @@ function Login() {
 
   return (
     <>
-    <Navbar/>
+    <div className="body-login">
 
-    <div className="container">
+    <Navbar/>
+    
+    <main className="main-login">
+    <div className="container-login">
 
       <h1>Login</h1>
 
@@ -107,6 +110,8 @@ function Login() {
 
       </form>
 
+    </div>
+    </main>
     </div>
   </>
   );

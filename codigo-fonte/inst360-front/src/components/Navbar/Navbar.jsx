@@ -1,10 +1,11 @@
 import "./Navbar.css";
 import logo from "./logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Navbar() {
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const usuarioSalvo =
     sessionStorage.getItem("usuarioLogado");
@@ -18,6 +19,12 @@ function Navbar() {
     navigate("/login");
   }
 
+  function acessoForm(){
+    navigate("/acesso-formulario");
+  }
+
+  const acessoVerificacao = location.pathname === "/acesso-formulario";
+
   return (
     <nav className="navbar">
       <div className="logo">
@@ -29,6 +36,9 @@ function Navbar() {
         {usuarioLogado ?(
           <>
           <Link className="menu-links" to="/home">Home</Link>
+          {!acessoVerificacao && (
+            <button className="menu-links" onClick={acessoForm}>Responder Pesquisa</button>
+          )}
           <button className="menu-links" onClick={sair}>Sair</button>
           </>
         ):(
