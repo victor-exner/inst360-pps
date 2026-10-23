@@ -103,12 +103,13 @@ function Home() {
 
         {usuario.administrador && (
           <section className="home-lista-usuarios">
-            <ListaUsuarios />
+            <ListaUsuarios/>
           </section>
         )}
+      </main>
 
         <section className="home-secao-graficos">
-          <h2>Resultados da pesquisa de satisfação acadêmica</h2>
+          <h2 className="home-subtitulo">Resultados da pesquisa de satisfação acadêmica</h2>
 
           <p className="home-descricao-graficos">
             Confira a distribuição das respostas de cada pergunta
@@ -198,7 +199,7 @@ function Home() {
             })}
           </div>
         </section>
-      </main>
+
     </div>
   );
 }

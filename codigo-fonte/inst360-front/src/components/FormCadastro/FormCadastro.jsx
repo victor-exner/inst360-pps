@@ -1,3 +1,5 @@
+import "./FormCadastro.css";
+
 function FormularioCadastro({
   usuario,
   alterarCampo,
@@ -17,6 +19,7 @@ function FormularioCadastro({
           name="nome"
           value={usuario.nome}
           onChange={alterarCampo}
+          className="inputs-cadastro"
         />
       </div>
 
@@ -28,6 +31,7 @@ function FormularioCadastro({
           name="matricula"
           value={usuario.matricula}
           onChange={alterarCampo}
+          className="inputs-cadastro"
         />
       </div>
 
@@ -39,6 +43,7 @@ function FormularioCadastro({
           name="endereco"
           value={usuario.endereco}
           onChange={alterarCampo}
+          className="inputs-cadastro"
         />
       </div>
 
@@ -50,6 +55,7 @@ function FormularioCadastro({
           name="dataNasc"
           value={usuario.dataNasc}
           onChange={alterarCampo}
+          className="inputs-cadastro"
         />
       </div>
 
@@ -61,6 +67,7 @@ function FormularioCadastro({
           name="email"
           value={usuario.email}
           onChange={alterarCampo}
+          className="inputs-cadastro"
         />
       </div>
 
@@ -72,10 +79,11 @@ function FormularioCadastro({
           name="senha"
           value={usuario.senha}
           onChange={alterarCampo}
+          className="inputs-cadastro"
         />
       </div>
 
-      <button type="submit">
+      <button type="submit" className="btn-cadastro">
         Cadastrar
       </button>
 

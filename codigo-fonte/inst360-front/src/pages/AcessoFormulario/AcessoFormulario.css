@@ -1,0 +1,108 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.acessoform-container{
+    height: calc(100vh - 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.acessoform-subcontainer{
+    background-color: #fff;
+    padding: 3rem;
+    height: fit-content;
+    width: 30rem;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 8px grey;
+}
+
+.acessoform-subtitulo{
+    margin: 1rem 0;
+}
+
+.input-acessoform{
+    border: 1px solid grey;
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid grey;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.btn-acessoform{
+    width: fit-content;
+    padding: 0.6rem 1rem;
+    margin: 1rem auto;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-family: 'poppins';
+}
+
+.btn-acessoform.btn-acessoform-ocultar{
+    background-color: #aa3c30;
+    color: #fff;
+    transition: background-color 250ms ease;
+}
+
+.btn-acessoform.btn-acessoform-ocultar:hover{
+    background-color: #962d22;
+}
+
+.container-btn-ocultar{
+    width: 100%;
+    display: flex;
+}
+
+.container-msg-acessoform{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+/* animações para ocultar e exibir campo de contrasenha */
+.container-contrasenha{
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-10px);
+    visibility: hidden;
+
+    transition:
+    max-height 400ms ease,
+    opacity 300ms ease,
+    transform 400ms ease,
+    visibility 0s linear 400ms;
+}
+
+/* Formulário fechado: conteúdo sem altura e sem interação */
+.container-contrasenha:not(.contrasenha-visivel) {
+    pointer-events: none;
+}
+
+/* Estado aberto */
+.container-contrasenha.contrasenha-visivel {
+    max-height: 400px;
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+
+    transition:
+    max-height 400ms ease,
+    opacity 300ms ease,
+    transform 400ms ease,
+    visibility 0s;
+}
+
+/* Permite que o conteúdo seja recolhido sem cortar a animação */
+.form-contrasenha {
+    min-height: 0;
+    overflow: hidden;
+}
+

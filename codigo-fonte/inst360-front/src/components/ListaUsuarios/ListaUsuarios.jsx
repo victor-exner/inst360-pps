@@ -8,6 +8,23 @@ function ListaUsuarios() {
   const [usuarioEditando, setUsuarioEditando] =
   useState(null);
 
+  //funções para animar a abertura e fechamento da aba de edição
+  const [mostrarFormularioEdicao, setMostrarFormularioEdicao] = useState(false);
+
+  useEffect(() => {
+    if (usuarioEditando) {
+      setMostrarFormularioEdicao(true);
+    }
+  }, [usuarioEditando]);
+
+  function cancelarEdicao() {
+    setMostrarFormularioEdicao(false);
+
+    setTimeout(() => {
+      setUsuarioEditando(null);
+    }, 400);
+  }
+
   useEffect(() => {
     carregarUsuarios();
   }, []);
@@ -87,11 +104,16 @@ async function salvarEdicao() {
 // ===== JSX =====
   return (
   <>
-{/* Retornando o formulário de edição, após clicar no botão de editar */}
-{usuarioEditando && (
+ {/* Retornando o formulário de edição, após clicar no botão de editar */} 
 
-  <div className="formulario-edicao">
+  <div className={`formulario-edicao ${mostrarFormularioEdicao && usuarioEditando
+    ? "edicao-visivel" : "edicao-oculta"}`}
+    aria-hidden={!mostrarFormularioEdicao || !usuarioEditando}
+    inert={!mostrarFormularioEdicao || !usuarioEditando}>
 
+  {usuarioEditando && (
+  <>
+    <hr></hr>
     <h1 className="edit-title">Editar usuário</h1>
 
     <input type="text" className="edit-inputs" 
@@ -128,12 +150,15 @@ async function salvarEdicao() {
       Salvar
     </button>
 
-    <button className="edit-btns btn-cancelar" onClick={() => setUsuarioEditando(null)}>
+    <button className="edit-btns btn-cancelar" onClick={cancelarEdicao}>
       Cancelar
     </button>
 
+    <hr></hr>
+  </>
+  )}
   </div>
-)}
+
 
 {/* Retornando a Lista de Usuários */}
     <div className="lista-usuarios">

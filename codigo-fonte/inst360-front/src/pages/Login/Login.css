@@ -10,6 +10,7 @@
     height: 100vh;
     width: 100%;
     background-color: lightgray;
+    font-family: 'poppins';
 }
 
 .main-login{
@@ -28,8 +29,35 @@
     flex-direction: column;
     background-color: #fff;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 3rem;
     margin: 0.5rem auto;
-    width: 30%;
-    height: 30rem;
+    width: 20rem;
+    height: fit-content;
+    box-shadow: 0px 0px 8px grey;
+}
+
+.titulo-login{
+    margin-bottom: 1.5rem;
+}
+
+.btn-login{
+    width: fit-content;
+    padding: 1rem;
+    margin: 1rem auto 0rem auto;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-family: 'poppins';
+}
+
+.btn-login:hover{
+    letter-spacing: 1px;
+}
+
+.input-login{
+    border: 1px solid grey;
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid grey;
+    border-radius: 6px;
+    font-size: 16px;
 }

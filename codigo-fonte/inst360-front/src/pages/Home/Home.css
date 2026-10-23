@@ -24,14 +24,14 @@ max-width: 1400px;
 min-height: 50vh;
 }
 
-.home-titulo {
-color: #222;
+.home-titulo{
+color: #245b2a;
 font-size: 2rem;
 }
 
 .home-boas-vindas,
 .home-tipo-usuario {
-color: #444;
+color: #222222;
 font-size: 1rem;
 }
 
@@ -41,40 +41,43 @@ overflow-x: auto;
 }
 
 .home-secao-graficos {
-margin-top: 1.5rem;
-width: 100%;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin: 1rem auto;
+    width: 90%;
 }
 
 .home-secao-graficos h2 {
-color: #222;
+color: #245b2a;
 font-size: 1.6rem;
 margin-bottom: 0.5rem;
 }
 
 .home-descricao-graficos {
-color: #555;
+color: #222222;
 line-height: 1.5;
 margin-bottom: 1.5rem;
 }
 
 .home-graficos-grid {
-display: grid;
-grid-template-columns: repeat(2, minmax(0, 1fr));
-gap: 1.5rem;
-margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
 }
 
 .home-grafico-card {
-min-width: 0;
-padding: 1rem;
-background-color: #f9fafb;
-border: 1px solid #ddd;
-border-radius: 0.75rem;
-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    min-width: 0;
+    padding: 1rem;
+    background-color: #f9fafb;
+    border: 1px solid #3a633a;
+    border-radius: 0.75rem;
+    box-shadow: 0px 0px 6px #6e8b6e;
 }
 
 .home-grafico-card h3 {
-color: #333;
+color: #222222;
 font-size: 1.1rem;
 line-height: 1.4;
 text-align: center;
@@ -88,7 +91,7 @@ height: 320px;
 
 .home-total-respostas {
 text-align: center;
-color: #444;
+color: #222222;
 font-weight: bold;
 margin-top: 0.5rem;
 }

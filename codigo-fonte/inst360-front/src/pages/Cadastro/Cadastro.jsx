@@ -62,25 +62,18 @@ function Cadastro() {
     <>
       <Navbar/>
 
-      <main className="container">
+      <main className="container-cadastro">
 
-        <h1>Cadastro de Usuário</h1>
+        <h1 className="titulo-cadastro">Cadastro</h1>
 
         <FormularioCadastro
           usuario={usuario}
           alterarCampo={alterarCampo}
-          cadastrar={cadastrar}
-        />
+          cadastrar={cadastrar}/>
 
-        <Mensagem
-          texto={mensagem}
-          tipo="sucesso"
-        />
+        <Mensagem texto={mensagem} tipo="sucesso" className="msg-cadastro"/>
 
-        <Mensagem
-          texto={erro}
-          tipo="erro"
-        />
+        <Mensagem texto={erro} tipo="erro" className="msg-cadastro"/>
 
       </main>
     </>

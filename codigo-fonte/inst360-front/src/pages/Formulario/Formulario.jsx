@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Formulario.css";
 
+import Navbar from "../../components/Navbar/Navbar";
+
 const perguntas = [
   {
     id: "resposta1",
@@ -237,6 +239,8 @@ function Formulario() {
   }
 
   return (
+  <>
+  <Navbar/>
 
   <main className="pesquisa-container">
     <h1 className="pesquisa-titulo">Pesquisa de satisfação acadêmica</h1>
@@ -276,20 +280,20 @@ function Formulario() {
     </button>
   </form>
 ) : (
-  <p className="pesquisa-mensagem">
-    {tipoMensagem === "sucesso"
-      ? "Obrigado! Suas respostas foram registradas."
-      : "Você não possui autorização ativa para responder."}
-  </p>
-)}
+    !mensagem && (
+    <p className="pesquisa-mensagem">
+      Você não possui autorização ativa para responder.
+    </p>)
+    )}
 
 {mensagem && (
-  <p className="pesquisa-mensagem" role="status">
-    {mensagem}
-  </p>
-)}
+          <p role="status" className={`pesquisa-mensagem ${
+            tipoMensagem === "sucesso" ? "mensagem-sucesso" : "mensagem-erro"}`}>
+            {mensagem}
+          </p>
+        )}
   </main>
+  </>
 );
 }
-
 export default Formulario;

@@ -67,7 +67,7 @@ function Login() {
     <main className="main-login">
     <div className="container-login">
 
-      <h1>Login</h1>
+      <h1 className="titulo-login">Login</h1>
 
       {mensagemErro && (
         <p className="mensagem erro">
@@ -89,6 +89,7 @@ function Login() {
             onChange={(evento) =>
               setMatricula(evento.target.value)
             }
+            className="input-login"
           />
         </div>
 
@@ -101,10 +102,11 @@ function Login() {
             onChange={(evento) =>
               setSenha(evento.target.value)
             }
+            className="input-login"
           />
         </div>
 
-        <button type="submit">
+        <button type="submit" className="btn-login">
           Entrar
         </button>
 

@@ -4,34 +4,25 @@
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f3f5f3;
+  font-family: 'poppins';
+  background: lightgray;
   color: #222;
 }
 
-main {
-  width: min(900px, 92%);
-  margin: 40px auto;
+.container-cadastro{
+  width: 30rem;
+  margin: 2rem auto;
   display: grid;
   gap: 24px;
-}
-
-.card,
-.lista {
-  background: white;
-  padding: 28px;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 3rem;
+  box-shadow: 0px 0px 4px grey;
 }
 
 h1, h2 {
   margin-top: 0;
   color: #245b2a;
-}
-
-.subtitulo {
-  margin-top: -12px;
-  color: #666;
 }
 
 form {
@@ -45,15 +36,7 @@ label {
   font-weight: bold;
 }
 
-input {
-  width: 100%;
-  padding: 11px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-}
-
-button {
+button{
   border: 0;
   border-radius: 6px;
   padding: 12px 18px;
@@ -72,6 +55,7 @@ button:hover {
   padding: 10px;
   border-radius: 6px;
   font-weight: bold;
+  margin: auto;
 }
 
 .sucesso {
@@ -82,30 +66,6 @@ button:hover {
 .erro {
   background: #ffebee;
   color: #b71c1c;
-}
-
-.lista-cabecalho {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-}
-
-.usuarios {
-  display: grid;
-  gap: 10px;
-}
-
-article {
-  display: grid;
-  gap: 4px;
-  padding: 14px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-article span {
-  color: #666;
 }
 
 @media (max-width: 600px) {

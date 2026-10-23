@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 
+import "./AcessoFormulario.css";
+
 function AcessoFormulario() {
   const navigate = useNavigate();
 
@@ -101,92 +103,86 @@ function AcessoFormulario() {
 
   return (
 <>
-    <Navbar/>
+  <Navbar/>
 
-    <main className="acesso-formulario-container">
+  <div className="acessoform-container">
+    <main className="acessoform-subcontainer">
       <h1>Acesso ao formulário de pesquisa</h1>
 
-      <p>
-        Solicite uma contrassenha por e-mail ou informe um
-        código que você já possui.
-      </p>
+      <p className="acessoform-subtitulo">Solicite uma contrassenha por e-mail ou informe um
+        código que você já possui.</p>
 
       <form onSubmit={solicitarContrasenha}>
-        <label htmlFor="email">
-          E-mail
-        </label>
+        <label htmlFor="email">E-mail:</label>
 
-        <input
-          id="email"
-          type="email"
-          value={email}
+        <input id="email" type="email" value={email}
           onChange={(evento) => setEmail(evento.target.value)}
           placeholder="Digite seu e-mail"
           required
           disabled={carregando}
-        />
+          className="input-acessoform"/>
 
-        <button type="submit" disabled={carregando}>
+        <button type="submit" disabled={carregando} className="btn-acessoform">
           {carregando
             ? "Processando..."
             : "Solicitar contrassenha"}
         </button>
       </form>
 
-      <hr />
-
-      <button
-        type="button"
-        disabled={carregando}
+      <hr/>
+    
+    <div className="container-btn-ocultar">
+      <button type="button" disabled={carregando} 
+      className={`btn-acessoform ${mostrarCampoCodigo ? "btn-acessoform-ocultar" : ""}`}
         onClick={() => {
           setMostrarCampoCodigo(!mostrarCampoCodigo);
           setMensagem("");
           setTipoMensagem("");
-        }}
-      >
+        }}>
+
         {mostrarCampoCodigo
           ? "Ocultar campo de contrassenha"
           : "Já possuo uma contrassenha"}
       </button>
+    </div>
 
-      {mostrarCampoCodigo && (
-        <form onSubmit={validarContrasenha}>
-          <label htmlFor="contrasenha">
-            Contrassenha
-          </label>
+  <div className=
+  {`container-contrasenha ${mostrarCampoCodigo ? "contrasenha-visivel" : ""}`}
+  aria-hidden={!mostrarCampoCodigo}>
 
-          <input
-            id="contrasenha"
-            type="text"
+        <form onSubmit={validarContrasenha} className="form-contrasenha"
+        inert={!mostrarCampoCodigo}>
+
+          <label htmlFor="contrasenha">Contrassenha</label>
+
+          <input id="contrasenha" type="text"
             value={contrasenha}
             onChange={(evento) =>
-              setContrasenha(evento.target.value)
-            }
+              setContrasenha(evento.target.value)}
             placeholder="Digite sua contrassenha"
             required
-            disabled={carregando}
-          />
+            disabled={carregando || !mostrarCampoCodigo}
+            className="input-acessoform"/>
 
-          <button type="submit" disabled={carregando}>
+          <button type="submit" disabled={carregando || !mostrarCampoCodigo} className="btn-acessoform">
             {carregando
               ? "Validando..."
               : "Validar contrassenha"}
           </button>
         </form>
-      )}
+    </div>
 
+    <div className="container-msg-acessoform">
       {mensagem && (
-        <p
-          role="status"
-          style={{
-            color: tipoMensagem === "sucesso" ? "green" : "red",
-            marginTop: "16px",
-          }}
-        >
+        <p role="status" className="msg-acessoform"
+          style={{color: tipoMensagem === "sucesso" ? "green" : "red"}}>
           {mensagem}
         </p>
       )}
+    </div>
+
     </main>
+  </div>
   </>
   );
 }

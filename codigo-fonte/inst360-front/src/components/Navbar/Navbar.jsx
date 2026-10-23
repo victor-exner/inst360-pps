@@ -23,7 +23,8 @@ function Navbar() {
     navigate("/acesso-formulario");
   }
 
-  const acessoVerificacao = location.pathname === "/acesso-formulario";
+  const acessoFormVerificacao = location.pathname === "/acesso-formulario";
+  const acessoPesquisaVerificacao = location.pathname === "/formulario";
 
   return (
     <nav className="navbar">
@@ -36,7 +37,7 @@ function Navbar() {
         {usuarioLogado ?(
           <>
           <Link className="menu-links" to="/home">Home</Link>
-          {!acessoVerificacao && (
+          {!acessoFormVerificacao && !acessoPesquisaVerificacao &&(
             <button className="menu-links" onClick={acessoForm}>Responder Pesquisa</button>
           )}
           <button className="menu-links" onClick={sair}>Sair</button>
